@@ -14,3 +14,18 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.main {
+   background-color: #333b5b;
+   color: white;
+}
+
+.temp {
+   font-size: 70px;
+   text-align: center;
+   font-weight: normal;
+}
+
+.location, .icon, .desc {
+   text-align: center;
+}
