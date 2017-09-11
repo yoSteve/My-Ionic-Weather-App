@@ -12,10 +12,11 @@ export class WeatherPage {
   weather: any;
   results: any[];
   selected: string;
+  searchStr: string;
 
   constructor(public navCtrl: NavController, private weatherService: WeatherService) {
     this.city = 'Vancouver';
-    this.state = 'BC';
+    this.state = 'Canada';
   }
 
   ngOnInit() {
@@ -23,12 +24,10 @@ export class WeatherPage {
       .subscribe(weather => {
         this.results = weather.response.results;
         this.weather = weather.current_observation;
-        console.log(weather);
       })
   }
 
   onClickSelected(result) {
-    console.log("ZMW: " + result.zmw);
     this.weatherService.getWeatherFromSelected(result.zmw)
       .subscribe(weather => {
         this.weather = weather.current_observation;
@@ -36,4 +35,16 @@ export class WeatherPage {
       })
   }
 
-}
+  getQuery() {
+    if (this.searchStr !== "") {
+      this.weatherService.searchCities(this.searchStr)
+        .subscribe(res => {
+          this.results = res.RESULTS;
+          console.log(this.results);
+        })
+    } else {
+      this.results = null;
+    }
+ }
+
+} // end Class

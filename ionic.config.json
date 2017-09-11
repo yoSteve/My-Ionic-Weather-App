@@ -2,5 +2,11 @@
   "name": "myweather",
   "app_id": "",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {},
+  "proxies": [
+     {
+        "path": "/search",
+        "proxyUrl": "http://autocomplete.wunderground.com"
+     }
+ ]
 }
