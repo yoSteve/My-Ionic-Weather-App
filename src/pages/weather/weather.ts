@@ -27,11 +27,12 @@ export class WeatherPage {
       })
   }
 
-  onClickSelected(result) {
-    this.weatherService.getWeatherFromSelected(result.zmw)
+  chooseCity(city) {
+    this.weatherService.getWeatherFromSelected(city)
       .subscribe(weather => {
         this.weather = weather.current_observation;
-        this.results = null;
+        this.results = [];
+        console.log(this.weather);
       })
   }
 
@@ -40,11 +41,10 @@ export class WeatherPage {
       this.weatherService.searchCities(this.searchStr)
         .subscribe(res => {
           this.results = res.RESULTS;
-          console.log(this.results);
         })
     } else {
-      this.results = null;
+      this.results = [];
     }
- }
+  }
 
 } // end Class

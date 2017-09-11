@@ -22,7 +22,7 @@
     <ion-row>
       <ion-list *ngIf="results">
         <ion-item *ngFor="let result of results">
-          <span>{{ result.name }}</span>
+          <span (click)="chooseCity(result)">{{ result.name }}</span>
         </ion-item>
       </ion-list>
     </ion-row>
