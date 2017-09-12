@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { WeatherService } from '../../app/services/weather.service';
 import { WeatherPage } from '../weather/weather';
+import { SettingsService } from '../../app/services/settings.service';
 
 @Component({
   selector: 'settings',
@@ -11,13 +12,14 @@ export class SettingsPage {
   results: any[];
   searchStr: string;
   defaultLocation: any;
+  currentDefault: string;
 
-  constructor(public navCtrl: NavController, private weatherService: WeatherService) {
-
+  constructor(public navCtrl: NavController, private weatherService: WeatherService, private settingsService: SettingsService) {
+    this.getDefaultLocation();
+    this.currentDefault = this.defaultLocation.name;
   }
 
   ngOnInit() {
-    this.getDefaultLocation();
   }
 
   getQuery() {
@@ -32,22 +34,20 @@ export class SettingsPage {
   }
 
   getDefaultLocation() {
-     if (localStorage.getItem('location') !== undefined ) {
-        this.defaultLocation = JSON.parse(localStorage.location).name;
-     } else {
-       this.defaultLocation = "London, UK";
-     }
+     this.defaultLocation = this.settingsService.getDefaultLocationObject();
  }
 
   setDefaultLocation(city) {
-    localStorage.setItem('location', JSON.stringify(city));
     this.searchStr = city.name;
-    this.defaultLocation = city.name;
+    this.defaultLocation = city;
     this.results = [];
   }
 
   saveChanges() {
+    this.settingsService.setDefaultLocation(this.defaultLocation);
+    this.currentDefault = this.defaultLocation.name;
     this.navCtrl.push(WeatherPage);
+    this.searchStr = '';
   }
 
 } // end class

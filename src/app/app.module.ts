@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { WeatherService } from './services/weather.service';
+import { SettingsService } from './services/settings.service';
 import { HttpModule } from '@angular/http';
 
 @NgModule({
@@ -35,6 +36,7 @@ import { HttpModule } from '@angular/http';
     StatusBar,
     SplashScreen,
     WeatherService,
+    SettingsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

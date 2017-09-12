@@ -1,22 +1,24 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { WeatherService } from '../../app/services/weather.service';
+import { SettingsService } from '../../app/services/settings.service';
 
 @Component({
   selector: 'weather',
   templateUrl: 'weather.html',
 })
 export class WeatherPage {
-  city: string;
+  city: any;
   state: string;
   zmw: string;
   weather: any;
   results: any[];
   searchStr: string;
 
-  constructor(public navCtrl: NavController, private weatherService: WeatherService) {
-    this.city = 'Vancouver';
-    this.state = 'Canada';
+  constructor(
+      public navCtrl: NavController,
+      private weatherService: WeatherService,
+      private settingsService: SettingsService) {
     this.getDefaultLocation();
   }
 
@@ -29,10 +31,7 @@ export class WeatherPage {
   }
 
   getDefaultLocation() {
-     if (localStorage.getItem('location') !== undefined ) {
-        this.city = JSON.parse(localStorage.location);
-        console.log("Default: ", this.city);
-     }
+    this.city = this.settingsService.getDefaultLocationObject();
  }
 
   chooseCity(city) {
@@ -40,7 +39,6 @@ export class WeatherPage {
       .subscribe(weather => {
         this.weather = weather.current_observation;
         this.results = [];
-        console.log(this.weather);
       })
   }
 
