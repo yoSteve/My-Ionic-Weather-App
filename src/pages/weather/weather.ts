@@ -9,26 +9,34 @@ import { WeatherService } from '../../app/services/weather.service';
 export class WeatherPage {
   city: string;
   state: string;
+  zmw: string;
   weather: any;
   results: any[];
-  selected: string;
   searchStr: string;
 
   constructor(public navCtrl: NavController, private weatherService: WeatherService) {
     this.city = 'Vancouver';
     this.state = 'Canada';
+    this.getDefaultLocation();
   }
 
   ngOnInit() {
-    this.weatherService.getWeather(this.city, this.state)
+    this.weatherService.getWeatherFromLocation(this.city)
       .subscribe(weather => {
         this.results = weather.response.results;
         this.weather = weather.current_observation;
       })
   }
 
+  getDefaultLocation() {
+     if (localStorage.getItem('location') !== undefined ) {
+        this.city = JSON.parse(localStorage.location);
+        console.log("Default: ", this.city);
+     }
+ }
+
   chooseCity(city) {
-    this.weatherService.getWeatherFromSelected(city)
+    this.weatherService.getWeatherFromLocation(city)
       .subscribe(weather => {
         this.weather = weather.current_observation;
         this.results = [];

@@ -21,7 +21,7 @@ export class WeatherService {
          .map(res => res.json());
    }
 
-   getWeatherFromSelected(city) {
+   getWeatherFromLocation(city) {
       return this.http.get(this.conditionsUrl + 'zmw:' + city.zmw + '.json')
          .map(res => res.json());
    }
